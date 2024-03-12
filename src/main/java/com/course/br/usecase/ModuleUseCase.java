@@ -17,4 +17,6 @@ public interface ModuleUseCase {
 
     List<ModuleEntity> findAllByCourse(UUID courseId);
 
+    Optional<ModuleEntity> findModuleById(UUID moduleId);
+
 }

@@ -49,4 +49,9 @@ public class ModuleUseCaseImpl implements ModuleUseCase {
         return moduleRepository.findAllModulesByCourseId(courseId);
     }
 
+    @Override
+    public Optional<ModuleEntity> findModuleById(UUID moduleId) {
+        return moduleRepository.findById(moduleId);
+    }
+
 }
