@@ -1,6 +1,9 @@
 package com.course.br.usecase;
 
 import com.course.br.entity.LessonEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +18,6 @@ public interface LessonUseCase {
 
     LessonEntity update(LessonEntity lessonEntity);
 
-    List<LessonEntity> findAllLessonsByModuleId(UUID moduleId);
+    Page<LessonEntity> findAllLessonsByModuleId(Specification<LessonEntity> spec, Pageable pageable);
 
 }

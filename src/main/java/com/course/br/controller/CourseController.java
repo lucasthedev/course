@@ -2,9 +2,14 @@ package com.course.br.controller;
 
 import com.course.br.dto.CourseDto;
 import com.course.br.entity.CourseEntity;
+import com.course.br.specification.SpecificationTemplate;
 import com.course.br.usecase.CourseUseCase;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -70,8 +75,10 @@ public class CourseController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CourseEntity>> getAllCourses(){
-        return ResponseEntity.status(HttpStatus.OK).body(courseUseCase.findAll());
+    public ResponseEntity<Page<CourseEntity>> getAllCourses(@PageableDefault(page = 0, size = 10, sort = "name", direction = Sort.Direction.ASC)
+                                                            Pageable pageable){
+
+        return ResponseEntity.status(HttpStatus.OK).body(courseUseCase.findAll(pageable));
     }
 
     @GetMapping("/{courseId}")

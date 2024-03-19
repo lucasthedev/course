@@ -1,8 +1,10 @@
 package com.course.br.usecase;
 
 import com.course.br.entity.CourseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -16,6 +18,6 @@ public interface CourseUseCase {
 
     CourseEntity update(CourseEntity courseEntity);
 
-    List<CourseEntity> findAll();
+    Page<CourseEntity> findAll( Pageable pageable);
 
 }

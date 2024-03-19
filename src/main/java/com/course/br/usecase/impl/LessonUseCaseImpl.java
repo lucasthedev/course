@@ -4,6 +4,9 @@ import com.course.br.entity.LessonEntity;
 import com.course.br.repository.LessonRepository;
 import com.course.br.usecase.LessonUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,7 +39,7 @@ public class LessonUseCaseImpl implements LessonUseCase {
     }
 
     @Override
-    public List<LessonEntity> findAllLessonsByModuleId(UUID moduleId) {
-        return repository.findAllLessonsByModuleId(moduleId);
+    public Page<LessonEntity> findAllLessonsByModuleId(Specification<LessonEntity> spec, Pageable pageable) {
+        return repository.findAll(spec, pageable);
     }
 }

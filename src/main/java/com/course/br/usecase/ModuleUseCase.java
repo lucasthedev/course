@@ -1,8 +1,10 @@
 package com.course.br.usecase;
 
 import com.course.br.entity.ModuleEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -15,7 +17,7 @@ public interface ModuleUseCase {
 
     ModuleEntity update(ModuleEntity moduleEntity);
 
-    List<ModuleEntity> findAllByCourse(UUID courseId);
+    Page<ModuleEntity> findAllByCourse(Specification<ModuleEntity> spec, Pageable pageable);
 
     Optional<ModuleEntity> findModuleById(UUID moduleId);
 

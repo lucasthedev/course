@@ -3,10 +3,15 @@ package com.course.br.controller;
 import com.course.br.dto.ModuleDto;
 import com.course.br.entity.CourseEntity;
 import com.course.br.entity.ModuleEntity;
+import com.course.br.specification.SpecificationTemplate;
 import com.course.br.usecase.CourseUseCase;
 import com.course.br.usecase.ModuleUseCase;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -73,8 +78,12 @@ public class ModuleController {
     }
 
     @GetMapping("/courses/{courseId}/modules")
-    public ResponseEntity<List<ModuleEntity>> getAllModules(@PathVariable(value = "courseId") UUID courseId){
-        return ResponseEntity.status(HttpStatus.OK).body(moduleUseCase.findAllByCourse(courseId));
+    public ResponseEntity<Page<ModuleEntity>> getAllModules(@PageableDefault(page = 0, size = 10, sort = "moduleId", direction = Sort.Direction.ASC)
+                                                                Pageable pageable,
+                                                            SpecificationTemplate.ModuleSpecification spec,
+                                                            @PathVariable(value = "courseId") UUID courseId){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(moduleUseCase.findAllByCourse(SpecificationTemplate.moduleCourseId(courseId).and(spec), pageable));
     }
 
     @GetMapping("/courses/{courseId}/modules/{moduleId}")

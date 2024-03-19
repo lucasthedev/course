@@ -6,6 +6,9 @@ import com.course.br.repository.ModuleRepository;
 import com.course.br.usecase.ModuleUseCase;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,8 +48,8 @@ public class ModuleUseCaseImpl implements ModuleUseCase {
     }
 
     @Override
-    public List<ModuleEntity> findAllByCourse(UUID courseId) {
-        return moduleRepository.findAllModulesByCourseId(courseId);
+    public Page<ModuleEntity> findAllByCourse(Specification<ModuleEntity> spec, Pageable pageable) {
+        return moduleRepository.findAll(spec, pageable);
     }
 
     @Override
