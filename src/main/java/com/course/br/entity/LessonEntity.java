@@ -1,5 +1,6 @@
 package com.course.br.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -26,6 +27,7 @@ public class LessonEntity implements Serializable {
     private String description;
     private String videoUrl;
     @Column(nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     private LocalDateTime creationDate;
     @ManyToOne(optional = false)
     private ModuleEntity module;
